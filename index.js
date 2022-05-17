@@ -6,6 +6,7 @@ canvas.height = 576;
 
 context.fillRect(0, 0, canvas.width, canvas.height);
 
+const gravity = 0.2;
 class Sprite {
   constructor({ position, velocity }) {
     this.position = position;
@@ -24,6 +25,8 @@ class Sprite {
 
     if (this.position.y + this.velocity.y + this.height >= canvas.height) {
       this.velocity.y = 0;
+    } else {
+      this.velocity.y += gravity;
     }
   }
 }
@@ -35,7 +38,7 @@ const player = new Sprite({
   },
   velocity: {
     x: 0,
-    y: 10,
+    y: 0,
   },
 });
 
