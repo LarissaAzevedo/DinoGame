@@ -6,7 +6,7 @@ canvas.height = 576;
 
 context.fillRect(0, 0, canvas.width, canvas.height);
 
-const gravity = 0.2;
+const gravity = 0.6;
 class Sprite {
   constructor({ position, velocity }) {
     this.position = position;
@@ -21,6 +21,8 @@ class Sprite {
 
   update() {
     this.draw();
+
+    this.position.x + -this.velocity.x;
     this.position.y += this.velocity.y;
 
     if (this.position.y + this.velocity.y + this.height >= canvas.height) {
@@ -42,25 +44,27 @@ const player = new Sprite({
   },
 });
 
-const enemy = new Sprite({
-  position: {
-    x: 400,
-    y: 100,
-  },
-  velocity: {
-    x: 0,
-    y: 0,
-  },
-});
-
-console.log("player :>> ", player);
-
 function animate() {
   window.requestAnimationFrame(animate);
   context.fillStyle = "black";
   context.clearRect(0, 0, canvas.width, canvas.height);
   player.update();
-  enemy.update();
 }
 
 animate();
+
+window.addEventListener("keydown", (event) => {
+  switch (event.code) {
+    case "Space":
+      player.velocity.y = -15;
+      break;
+  }
+});
+
+window.addEventListener("keyup", (event) => {
+  switch (event.code) {
+    case "Space":
+      player.velocity.y = 0;
+      break;
+  }
+});
